@@ -1,0 +1,14 @@
+==> Authentication
+    => Registeration of User
+    => Login
+    => Logout
+
+==> Post
+    => Create a Post
+    => Can see the Feed
+    => Like Posts
+    => Save Post
+
+==> Users
+    => Followers
+    => Following
