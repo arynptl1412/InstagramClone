@@ -11,24 +11,6 @@ const imageKit = new imagekit({
 
 async function createPost(req, res) {
 
-    const token = req.cookies.jwtToken;
-
-    if(!token){
-        return res.status(401).json({
-            message: "Token not Provided. Unauthorized access."
-        })
-    }
-
-    let decoded;
-
-    try{
-        decoded = jwt.verify(token, process.env.JWT_SECRET);
-    }catch(err){
-        return res.status(401).json({
-            message: "Unauthorized access."
-        })
-    }
-
     const file = await imageKit.files.upload({
         file: await toFile(Buffer.from(req.file.buffer), 'file'),
         fileName: "CodeWallpaper",
@@ -38,7 +20,7 @@ async function createPost(req, res) {
     const post = await postModel.create({
         caption: req.body.caption,
         imgUrl: file.url,
-        user: decoded.id
+        user: req.user.id
     })
 
     res.status(201).json({
@@ -48,28 +30,8 @@ async function createPost(req, res) {
 }
 
 async function getPosts(req, res){
-    const token = req.cookies.jwtToken;
-
-    if(!token){
-        return res.status(401).json({
-            message: "Token not provided."
-        })
-    }
-
-    let decoded;
-
-    try{
-        decoded = jwt.verify(token, process.env.JWT_SECRET);
-    }catch(err){
-        return res.status(401).json({
-            message: "Unauthorized Access"
-        })
-    }
-
-    const userId = decoded.id;
-
     const posts = await postModel.find({
-        user:userId
+        user:req.user.id
     })
 
     res.status(200).json({
@@ -79,26 +41,6 @@ async function getPosts(req, res){
 }
 
 async function getpostDetails(req, res){
-    const token = req.cookies.jwtToken;
-
-    if(!token){
-        return res.status(401).json({
-            message: "Token not provided."
-        })
-    }
-
-    let decoded;
-
-    try{
-        decoded = jwt.verify(token, process.env.JWT_SECRET);
-    }catch(err){
-        return res.status(401).json({
-            message: "Unauthorized Access."
-        })
-    }
-
-    const userId = decoded.id;
-    
     const postId = req.params.postId;
 
     const postDets = await postModel.findById(postId);
@@ -109,7 +51,7 @@ async function getpostDetails(req, res){
         })
     }
 
-    const isValidUser = postDets.user.toString() === userId;
+    const isValidUser = postDets.user.toString() === req.user.id;
 
     if(!isValidUser){
         return res.status(403).json({
