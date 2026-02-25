@@ -40,6 +40,16 @@ const userSchema = new mongoose.Schema(
             type: String, // URL (Cloudinary / S3)
             default: "https://ik.imagekit.io/pih7wqiha8/userImage.avif"
         },
+
+        followers: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'users'
+        }],
+        
+        following: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'users'
+        }]
     })
 
 const userModel = mongoose.model("users", userSchema);
