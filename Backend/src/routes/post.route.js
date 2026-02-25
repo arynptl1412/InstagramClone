@@ -1,5 +1,5 @@
 import express from 'express';
-import { createPost, getpostDetails, getPosts } from '../controllers/post.controller.js'
+import { createPost, getpostDetails, getPosts, likePost, unlikePostController } from '../controllers/post.controller.js'
 import multer from 'multer';
 import {identifyUser} from '../middlewares/auth.middleware.js'
 
@@ -13,6 +13,10 @@ postRouter.post('/',upload.single("image"), identifyUser,createPost);
 postRouter.get('/', identifyUser, getPosts);
 
 //Get all the details of the particular post.
-postRouter.get('/details/:postId', identifyUser, getpostDetails)
+postRouter.get('/details/:postId', identifyUser, getpostDetails);
+
+postRouter.post('/like/:postId', identifyUser, likePost);
+
+postRouter.post('/unlike/:postId', identifyUser, unlikePostController)
 
 export { postRouter };

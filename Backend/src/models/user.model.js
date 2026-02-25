@@ -37,10 +37,21 @@ const userSchema = new mongoose.Schema(
         },
 
         profilePic: {
-            type: String, // URL (Cloudinary / S3)
+            type: String,
             default: "https://ik.imagekit.io/pih7wqiha8/userImage.avif"
+        },
+
+        followersCount: {
+            type: Number,
+            default: 0
+        },
+
+        followingCount: {
+            type: Number,
+            default: 0
         }
-    })
+
+    }, { timestamps: true });
 
 const userModel = mongoose.model("users", userSchema);
 

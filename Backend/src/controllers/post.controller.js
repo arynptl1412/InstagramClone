@@ -2,6 +2,7 @@ import { postModel } from '../models/post.model.js';
 import imagekit, {toFile} from '@imagekit/nodejs'
 import 'dotenv/config'
 import jsonwebtoken from 'jsonwebtoken'
+import {likesModel} from '../models/likes.model.js'
 
 const jwt = jsonwebtoken;
 
@@ -65,4 +66,59 @@ async function getpostDetails(req, res){
     })
 }
 
-export { createPost, getPosts, getpostDetails }
+async function likePost(req, res){
+    const postId = req.params.postId;
+    const userId = req.user.id;
+
+    const postFound = await postModel.findById(postId);
+
+    if(!postFound){
+        return res.status(404).json({
+            message: "This post does not exist."
+        })
+    }
+
+    const isLikeRecordAlreadyExists = await likesModel.findOne({
+        post: postId,
+        user: userId
+    })
+
+    if(isLikeRecordAlreadyExists){
+        return res.status(200).json({
+            message: "Already Liked this post."
+        })
+    }
+
+    const likeRecord = await likesModel.create({
+        post: postId,
+        user: userId
+    })
+
+    res.status(201).json({
+        message: "Liked the post successfully",
+        likeRecord
+    })
+}
+
+async function unlikePostController(req, res) {
+    const postId = req.params.postId;
+    const userId = req.user.id;
+
+    const isUserFollowing = await likesModel.findOne({
+        post: postId,
+        user: userId
+    })
+
+    if(!isUserFollowing){
+        return res.status(200).json({
+            message: "Already not liking the post."
+        })
+    }
+
+    await likesModel.findByIdAndDelete(isUserFollowing._id);
+
+    res.status(200).json({
+        message: "Unliked Successfully."
+    })
+}
+export { createPost, getPosts, getpostDetails, likePost, unlikePostController }
