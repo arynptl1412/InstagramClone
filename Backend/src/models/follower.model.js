@@ -13,8 +13,10 @@ const followerSchema = new mongoose.Schema({
     }
 }, {
     timestamps: true
-})
+});
+
+followerSchema.index({ follower: 1, followee: 1 }, { unique: true })
 
 const followerModel = mongoose.model('follows', followerSchema);
 
-export { followerModel }
+export default followerModel;
