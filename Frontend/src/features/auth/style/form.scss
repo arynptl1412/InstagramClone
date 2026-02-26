@@ -11,17 +11,11 @@ main {
         flex-direction: column;
         gap: 2rem;
 
-        background: rgb(36, 36, 36);
-
         padding-inline: 3rem;
         padding-top: 2rem;
         padding-bottom: 5rem;
 
         border-radius: 50px;
-
-        h1 {
-            margin: auto;
-        }
 
         form {
             display: flex;
@@ -43,8 +37,6 @@ main {
             }
 
             button {
-                width: fit-content;
-                margin: auto;
                 padding: 0.5rem 2rem;
                 border-radius: 0.5rem;
                 border: none;
@@ -59,7 +51,7 @@ main {
                 margin: auto;
 
                 .linkTag {
-                    color: rgb(0, 153, 255);
+                    color: #50C878;
                 }
             }
         }
