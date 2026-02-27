@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../style/form.scss'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
@@ -12,7 +12,13 @@ const Register = () => {
 
     const navigate = useNavigate();
 
-    const {handleRegister, loading} = useAuth();
+    const {user, handleRegister, loading} = useAuth();
+
+    useEffect(() => {
+            if (user) {
+                navigate("/");
+            }
+        }, [user, navigate]);
 
     if(loading){
         return (
@@ -23,10 +29,11 @@ const Register = () => {
     async function handleSubmit(e) {
         e.preventDefault()
 
-        handleRegister(username, email, password)
-        .then(res=>{
-            navigate("/")
-        })
+        try{
+            await handleRegister(username, email, password);
+        }catch(err){
+            console.log(err);
+        }
     }
 
     return (
@@ -46,7 +53,7 @@ const Register = () => {
                         <label>Password</label>
                         <input onInput={e => setPassword(e.target.value)} type="password" name='password' placeholder='Enter Your Password' />
                     </div>
-                    <button type='submit'>Register</button>
+                    <button type='submit' className='button'>Register</button>
 
                     <p>Already have an account? <Link to='/login' className='linkTag'>Login</Link></p>
                 </form>

@@ -39,6 +39,6 @@ export async function getProfile(){
         return response;
     }
     catch(err){
-
+        throw err;
     }
 }

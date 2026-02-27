@@ -46,8 +46,7 @@ async function registerController(req, res) {
             bio,
             fullname,
             profilePic
-        },
-        token
+        }
     });
 }
 
@@ -84,7 +83,13 @@ async function loginController(req, res) {
     res.cookie("jwtToken", token);
 
     res.status(200).json({
-        message: "Logged in Successfullly."
+        message: "Logged in Successfullly.",
+        user:{
+            username: user.username,
+            email: user.email,
+            bio: user.bio,
+            profilePic: user.profilePic
+        }
     })
 }
 

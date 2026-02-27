@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../style/form.scss'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { useAuth } from '../hooks/useAuth'
 
 const Login = () => {
@@ -11,10 +10,16 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const {handleLogin, loading} = useAuth()
+    const { user, handleLogin, loading } = useAuth()
 
-    if(loading){
-        return(
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate]);
+    
+    if (loading) {
+        return (
             <h1>Loading...</h1>
         )
     }
@@ -22,11 +27,14 @@ const Login = () => {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        handleLogin(username, password)
-        .then(res=>{
-            navigate("/")
-        })
+        try {
+            await handleLogin(username, password)
+        } catch (err) {
+            console.log(err)
+        }
+
     }
+
 
     return (
         <main>
@@ -41,7 +49,7 @@ const Login = () => {
                         <label>Password</label>
                         <input onInput={e => setPassword(e.target.value)} type="password" name='password' placeholder='Enter Your Password' />
                     </div>
-                    <button type='submit'>Login</button>
+                    <button type='submit' className='button'>Login</button>
 
                     <p>New User? <Link to='/register' className='linkTag'>Register</Link></p>
                 </form>
