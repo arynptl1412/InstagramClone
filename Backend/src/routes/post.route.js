@@ -1,5 +1,5 @@
 import express from 'express';
-import { createPost, getpostDetails, getPosts, likePost, unlikePostController } from '../controllers/post.controller.js'
+import { createPost, getpostDetails, getPosts, likePost, unlikePostController, fetchFeed } from '../controllers/post.controller.js'
 import multer from 'multer';
 import {identifyUser} from '../middlewares/auth.middleware.js'
 
@@ -17,6 +17,8 @@ postRouter.get('/details/:postId', identifyUser, getpostDetails);
 
 postRouter.post('/like/:postId', identifyUser, likePost);
 
-postRouter.post('/unlike/:postId', identifyUser, unlikePostController)
+postRouter.post('/unlike/:postId', identifyUser, unlikePostController);
+
+postRouter.get('/feed', identifyUser, fetchFeed);
 
 export { postRouter };

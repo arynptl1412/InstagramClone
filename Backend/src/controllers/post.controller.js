@@ -121,4 +121,17 @@ async function unlikePostController(req, res) {
         message: "Unliked Successfully."
     })
 }
-export { createPost, getPosts, getpostDetails, likePost, unlikePostController }
+
+async function fetchFeed(req, res){
+    const posts = await postModel.find().populate({
+        path: 'user',
+        select: "-password"
+    });
+
+    res.status(200).json({
+        message: "Fetched the Feed Successfully.",
+        posts
+    })
+}
+
+export { createPost, getPosts, getpostDetails, likePost, unlikePostController, fetchFeed }
