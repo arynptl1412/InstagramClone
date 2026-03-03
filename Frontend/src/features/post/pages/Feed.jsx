@@ -3,6 +3,7 @@ import '../style/feed.scss';
 import Post from '../components/Post';
 import { usePost } from '../hooks/usePost';
 import Nav from '../../../shared/components/Nav.jsx'
+import Sidebar from '../../../shared/components/Sidebar.jsx';
 
 const Feed = () => {
 
@@ -21,22 +22,25 @@ const Feed = () => {
     }
 
     return (
-        <main className='feed-page'>
+        <div className='feed-page'>
             <Nav />
-            <div className="feed">
-                <div className="posts">
+            <div className="main">
+                <Sidebar />
+                <div className="feed">
+                    <div className="posts">
 
-                    {feed?.filter(Boolean).map((post) => (
-                        <Post
-                            key={post._id}
-                            user={post.user}
-                            post={post}
-                        />
-                    ))}
+                        {feed?.filter(Boolean).map((post) => (
+                            <Post
+                                key={post._id}
+                                user={post.user}
+                                post={post}
+                            />
+                        ))}
 
+                    </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 

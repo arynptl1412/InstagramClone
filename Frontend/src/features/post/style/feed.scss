@@ -5,75 +5,86 @@
 }
 
 .feed-page {
-    @include flex(column, 0.5rem);
-    justify-content: center;
-    align-items: center;
 
-    .feed {
-        max-width: 350px;
-        width: 100%;
+    .main {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        justify-content: center;
+        align-items: center;
 
-        .posts {
-            width: 100%;
-            padding: 1rem 2rem;
+        .sidebar {
+            width: 300px;
+            top: 0;
+            left: 0;
+            height: 100%;
             background-color: rgb(17, 17, 17);
-            border-radius: 20px;
+        }
 
-            @include flex(column, 2rem);
+        .feed {
+            max-width: 400px;
+            width: 100%;
 
-            .post {
+            .posts {
                 width: 100%;
+                padding: 1rem 2rem;
+                background-color: rgb(17, 17, 17);
 
-                @include flex(column, 1rem);
+                @include flex(column, 2rem);
 
-                .user {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.6rem;
+                .post {
+                    width: 100%;
+
+                    @include flex(column, 1rem);
+
+                    .user {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.6rem;
+
+                        img {
+                            width: 2.2rem;
+                            padding: 0.1rem;
+                            border: 2px solid transparent;
+                            aspect-ratio: 1/1;
+                            border-radius: 50%;
+                            background-color: #fff;
+                            background: linear-gradient(rgb(17, 17, 17)) padding-box,
+                                conic-gradient(#ee2a7b, #f9ce34, #6228d7, #ee2a7b) border-box;
+                        }
+                    }
 
                     img {
-                        width: 2.2rem;
-                        padding: 0.1rem;
-                        border: 2px solid transparent;
-                        aspect-ratio: 1/1;
-                        border-radius: 50%;
-                        background-color: #fff;
-                        background: linear-gradient(rgb(17, 17, 17)) padding-box,
-                            conic-gradient(#ee2a7b, #f9ce34, #6228d7, #ee2a7b) border-box;
-                    }
-                }
-
-                img {
-                    width: 100%;
-                    border-radius: 20px;
-                }
-
-                .icons {
-                    width: 100%;
-
-                    @include flex();
-                    align-items: center;
-                    padding-inline: 0.5rem;
-                    justify-content: space-between;
-
-                    button {
-                        color: white;
-                        border: none;
-                        background-color: transparent;
-                        cursor: pointer;
-
-                        svg {
-                            width: 1.4rem;
-                            aspect-ratio: 1/1;
-                        }
-
-                        .like {
-                            fill: red;
-                        }
+                        width: 100%;
+                        border-radius: 20px;
                     }
 
-                    .left {
-                        @include flex(row, 0.5rem);
+                    .icons {
+                        width: 100%;
+
+                        @include flex();
+                        align-items: center;
+                        padding-inline: 0.5rem;
+                        justify-content: space-between;
+
+                        button {
+                            color: white;
+                            border: none;
+                            background-color: transparent;
+                            cursor: pointer;
+
+                            svg {
+                                width: 1.4rem;
+                                aspect-ratio: 1/1;
+                            }
+
+                            .like {
+                                fill: red;
+                            }
+                        }
+
+                        .left {
+                            @include flex(row, 0.5rem);
+                        }
                     }
                 }
             }
