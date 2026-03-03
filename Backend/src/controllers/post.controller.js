@@ -88,6 +88,7 @@ async function likePost(req, res) {
         message: "Liked successfully"
     });
 }
+
 async function unlikePostController(req, res) {
     const postId = req.params.postId;
     const userId = req.user.id;

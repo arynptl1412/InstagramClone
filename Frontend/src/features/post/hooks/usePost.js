@@ -21,9 +21,27 @@ export function usePost() {
         setLoading(false)
     }
 
-    useEffect(()=>{
-        handleFeed();
-    }, [])
+    async function handleLike(postId) {
+        const data = await likePost(postId);
+        setFeed(prev =>
+            prev.map(post =>
+                post._id === postId
+                    ? { ...post, isLiked: true }
+                    : post
+            )
+        );
+    }
 
-    return { loading, feed, post, handleFeed, handleCreatePost, handleLikePost, handleUnlikePost }
+    async function handleUnlike(postId) {
+        const data = await unlikePost(postId);
+        setFeed(prev =>
+            prev.map(post =>
+                post._id === postId
+                    ? { ...post, isLiked: false }
+                    : post
+            )
+        );
+    }
+
+    return { loading, feed, post, handleFeed, handleCreatePost, handleLike, handleUnlike }
 }

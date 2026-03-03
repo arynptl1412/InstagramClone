@@ -28,3 +28,21 @@ export async function createPost(imgUrl, caption){
         throw err;
     }
 }
+
+export async function likePost(postId){
+    try{
+        const response = await api.post('/post/like/' + postId);
+        return response.data;
+    }catch(err){
+        throw err
+    }
+}
+
+export async function unlikePost(postId){
+    try{
+        const response = await api.post('/post/unlike/' + postId)
+        return response.data;
+    }catch(err){
+        throw err;
+    }
+}
