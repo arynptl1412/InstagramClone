@@ -76,4 +76,17 @@ async function fetchFollowers(req, res) {
     })
 }
 
-export { followUserController, unfollowUserController, fetchFollowers };
+async function fetchFollowing(req, res) {
+    const userId = req.user.id;
+
+    const following = await followerModel
+        .find({follower: userId})
+        .populate({path: "followee", select: '_id username profilePic'});
+
+    res.status(200).json({
+        message: "User Fetched Successfully.",
+        following
+    })
+}
+
+export { followUserController, unfollowUserController, fetchFollowers, fetchFollowing };

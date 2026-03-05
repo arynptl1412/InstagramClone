@@ -111,7 +111,7 @@
 
         svg {
             width: 2rem;
-            transition: transform 0.3s ease;
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         &.open svg {
@@ -129,27 +129,54 @@
         background: black;
         overflow: hidden;
         max-height: 0;
-        transition: max-height 0.4s ease;
-        padding-inline: 0.2rem;
+        transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        padding-inline: 0.6rem;
 
         &.open {
             max-height: 500px; // big enough
         }
 
-        .user {
+        .userCard {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.6rem;
-            padding-block: 0.4rem;
-            img {
-                width: 2.2rem;
-                padding: 0.1rem;
-                border: 2px solid transparent;
-                aspect-ratio: 1/1;
-                border-radius: 50%;
-                background-color: #fff;
-                background: linear-gradient(rgb(17, 17, 17)) padding-box,
-                    conic-gradient(#ee2a7b, #f9ce34, #6228d7, #ee2a7b) border-box;
+
+            .user {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                padding-block: 0.4rem;
+
+                img {
+                    width: 2.2rem;
+                    padding: 0.1rem;
+                    border: 2px solid transparent;
+                    aspect-ratio: 1/1;
+                    border-radius: 50%;
+                    background-color: #fff;
+                    background: linear-gradient(rgb(17, 17, 17)) padding-box,
+                        conic-gradient(#ee2a7b, #f9ce34, #6228d7, #ee2a7b) border-box;
+                }
+
+            }
+            .folUnfol {
+                padding: 0.4rem 0.7rem;
+                border-radius: 0.5rem;
+                border: none;
+                background-color: #50C878;
+                color: white;
+                font-weight: 300;
+                font-size: 0.8rem;
+                cursor: pointer;
+                transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+
+                &:hover {
+                    transform: scale(1.05);
+                }
+
+                &:active {
+                    transform: scale(0.9);
+                }
             }
         }
     }

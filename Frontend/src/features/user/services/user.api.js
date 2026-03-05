@@ -12,4 +12,22 @@ export async function fetchFollowers(){
     }catch(err){
         throw err;
     }
-} 
+}
+
+export async function fetchFollowing(){
+    try{
+        const response = await api.get("/following");
+        return response.data;
+    }catch(err){
+        throw err;
+    }
+}
+
+export async function unfollow(userId){
+    try{
+        const response = await api.post("/unfollow/" + userId);
+        return response.data;
+    }catch(err){
+        throw err;
+    }
+}
