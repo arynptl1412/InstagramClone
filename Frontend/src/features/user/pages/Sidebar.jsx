@@ -1,12 +1,27 @@
-import React, { useState } from 'react'
-import '../sidebar.scss'
-import User from './User';
+import React, { useEffect, useState } from 'react'
+import '../style/sidebar.scss'
+import User from '../components/User';
+import { useUser } from '../hooks/useUser';
 
 const Sidebar = () => {
+
+    const { loading, followers, handleFollowers } = useUser();
 
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
     const [isOpen3, setIsOpen3] = useState(false);
+
+    useEffect(() => {
+        handleFollowers();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="sidebar">
+                <h1>Loading...</h1>
+            </div>
+        );
+    }
 
     return (
         <div className='sidebar'>
@@ -19,7 +34,7 @@ const Sidebar = () => {
                 </div>
 
                 <div className={`users ${isOpen1 ? "open" : ""}`}>
-                    <User/>
+                    <User followers={followers}/>
                 </div>
             </div>
 
@@ -32,9 +47,7 @@ const Sidebar = () => {
                 </div>
 
                 <div className={`users ${isOpen2 ? "open" : ""}`}>
-                    <div className="user">
-                        
-                    </div>
+                    
                 </div>
             </div>
 

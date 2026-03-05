@@ -5,20 +5,23 @@ import Register from './features/auth/pages/Register.jsx';
 import Feed from './features/post/pages/Feed.jsx';
 import { PostContextProvider } from './features/post/post.context.jsx';
 import CreatePost from './features/post/pages/CreatePost.jsx';
+import { UserProvider } from './features/user/user.context.jsx';
 
 const App = () => {
   return (
     <AuthProvider>
       <PostContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<h1>Welcome to The Home Page.</h1>} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/feed' element={<Feed />} />
-            <Route path='/create-post' element={<CreatePost />} />
-          </Routes>
-        </BrowserRouter>
+        <UserProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<h1>Welcome to The Home Page.</h1>} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/feed' element={<Feed />} />
+              <Route path='/create-post' element={<CreatePost />} />
+            </Routes>
+          </BrowserRouter>
+        </UserProvider>
       </PostContextProvider>
     </AuthProvider>
   )

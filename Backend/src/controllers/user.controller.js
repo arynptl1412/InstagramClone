@@ -50,7 +50,7 @@ async function unfollowUserController(req, res) {
         followee: followeeId
     })
 
-    if(!isUserFollowing){
+    if (!isUserFollowing) {
         return res.status(200).json({
             message: "Already not following the user."
         })
@@ -63,4 +63,17 @@ async function unfollowUserController(req, res) {
     })
 }
 
-export { followUserController, unfollowUserController };
+async function fetchFollowers(req, res) {
+    const userId = req.user.id;
+
+    const followers = await followerModel
+        .find({ followee: userId })
+        .populate({ path: "follower", select: '_id username profilePic' })
+
+    res.status(200).json({
+        message: "Followers Fetched Successfully.",
+        followers
+    })
+}
+
+export { followUserController, unfollowUserController, fetchFollowers };
